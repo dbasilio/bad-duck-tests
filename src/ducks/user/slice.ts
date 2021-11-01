@@ -14,15 +14,15 @@ export const userSlice = createSlice({
     reducers: {
         fetch: (state) => {
             state.isFetching = true
-            state.hasError = true
+            state.hasError = false
         },
         fetchSuccess: (state, action: PayloadAction<User>) => {
             state.isFetching = false
             state.user = action.payload
         },
         fetchError: (state) => {
-            state.isFetching = false,
-                state.hasError = true
+            state.isFetching = false
+            state.hasError = true
         }
     },
 })

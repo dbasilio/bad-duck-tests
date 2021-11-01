@@ -1,17 +1,17 @@
 import axios, { AxiosResponse } from 'axios'
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { userActions } from './slice'
+import { courseActions } from './slice'
 import type { Course } from './types'
 
 function* userSaga() {
     try {
         const response: AxiosResponse<Course> = yield call(axios.get, '/course')
-        yield put(userActions.fetchSuccess(response.data))
+        yield put(courseActions.fetchSuccess(response.data))
     } catch {
-        yield put(userActions.fetchError())
+        yield put(courseActions.fetchError())
     }
 }
 
 export function* courseSagaWatcher() {
-    yield takeEvery(userActions.fetch.toString(), userSaga)
+    yield takeEvery(courseActions.fetch.toString(), userSaga)
 }

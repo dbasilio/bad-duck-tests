@@ -27,12 +27,12 @@ export const courseSlice = createSlice({
     },
 })
 
-const userActions = courseSlice.actions
+const courseActions = courseSlice.actions
 const courseReducer = courseSlice.reducer
 const courseDuckName = courseSlice.name
 
 export {
-    userActions,
+    courseActions,
     courseReducer,
     courseDuckName,
 }
