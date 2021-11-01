@@ -1,4 +1,4 @@
-import axiosMockAdapter from 'axios-mock-adapter'
+import axiosMockAdapter from './axiosMockAdapter'
 
 afterEach(() => {
     axiosMockAdapter.reset()
