@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "noImplicitAny": true,
+        "rootDirs": [
+            "src"
+        ],
+        "moduleResolution": "node",
+        "allowJs": false,
+        // Enable strictest settings like strictNullChecks & noImplicitAny.
+        "strict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "downlevelIteration": true,
+        "skipLibCheck": true,
+        "jsx": "preserve",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ]
+    },
+    "include": [
+        "src",
+    ],
+    "exclude": [
+        "**/node_modules/*",
+    ],
+}
