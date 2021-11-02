@@ -8,6 +8,7 @@ import type { User } from './types'
 
 describe('user sagas', () => {
     it('watches for correct actions on saga watcher', () => {
+        // case 1: Add a new hook to the saga watcher
         testSaga(userSagaWatcher)
             .next()
             .takeEvery(userActions.fetch.toString(), userSaga)
@@ -24,13 +25,18 @@ describe('user sagas', () => {
         return expectSaga(userSagaWatcher)
             .provide([
                 [
+                    // case 1: Add a trailing slash
+                    // case 2: drop the second parameter
+                    // case 3: change to matchers.call.fn and change axios.get to axios
                     matchers.call(axios.get, '/user'),
                     {
                         data: user
                     },
                 ],
             ])
+            // case 4: comment out this line
             .put(userActions.fetchSuccess(user))
+            // case 5: comment out this line
             .dispatch(userActions.fetch())
             .silentRun()
     })

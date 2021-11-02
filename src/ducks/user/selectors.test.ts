@@ -1,4 +1,4 @@
-import { userSelector } from '.'
+import { userSelector, isFetchingSelector, hasErrorSelector } from '.'
 
 describe('user selectors', () => {
     it('returns undefined if state is undefined', () => {
@@ -34,5 +34,27 @@ describe('user selectors', () => {
             username: 'username',
             isActive: true
         })
+    })
+
+    it('returns is fetching correctly', () => {
+        const isFetching = isFetchingSelector({
+            user: {
+                isFetching: true,
+                hasError: false,
+            }
+        })
+
+        expect(isFetching).toBe(true)
+    })
+
+    it('returns hasError correctly', () => {
+        const hasError = hasErrorSelector({
+            user: {
+                isFetching: false,
+                hasError: true,
+            }
+        })
+
+        expect(hasError).toBe(true)
     })
 })
