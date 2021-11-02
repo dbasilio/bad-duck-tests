@@ -21,8 +21,8 @@ export const courseSlice = createSlice({
             state.course = action.payload
         },
         fetchError: (state) => {
-            state.isFetching = false,
-                state.hasError = true
+            state.isFetching = false
+            state.hasError = true
         }
     },
 })

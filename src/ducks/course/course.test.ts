@@ -27,21 +27,23 @@ describe('course tests', () => {
             courseName: 'course'
         }
 
-        axiosMockAdapter.onGet('/course/', {
-            ...course
-        })
+        axiosMockAdapter.onGet('/course').reply(200, course)
 
         store.dispatch(courseActions.fetch())
+        const fetchingState = store.getState()
+        expect(isFetchingSelector(fetchingState)).toBe(true)
+
         await flushPromises()
 
-        const state = store.getState()
+        const finalState = store.getState()
 
-        expect(courseSelector(state)?.courseId).toBe(course.courseId)
-        expect(courseSelector(state)?.courseName).toBe(course.courseName)
+        expect(courseSelector(finalState)?.courseId).toBe(course.courseId)
+        expect(courseSelector(finalState)?.courseName).toBe(course.courseName)
+        expect(isFetchingSelector(finalState)).toBe(false)
     })
 
     it('sets error when network throws', async () => {
-        axiosMockAdapter.onGet('/course/').networkError()
+        axiosMockAdapter.onGet('/course').networkError()
 
         store.dispatch(courseActions.fetch())
         await flushPromises()

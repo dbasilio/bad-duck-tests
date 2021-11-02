@@ -19,7 +19,7 @@ export default function createStore() {
         },
         middleware: [
             sagaMiddleware
-        ]
+        ],
     })
 
     sagaWatchers.forEach(watcher => sagaMiddleware.run(watcher))
