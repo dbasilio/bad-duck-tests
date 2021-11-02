@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
 import type { UserState, User } from './types'
 
@@ -7,29 +7,31 @@ const initialState: UserState = {
     hasError: false
 }
 
-export const userSlice = createSlice({
-    name: 'user',
-    // `createSlice` will infer the state type from the `initialState` argument
-    initialState,
-    reducers: {
-        fetch: (state) => {
+const userDuckName = 'user'
+
+const fetch = createAction('user/fetch')
+const fetchSuccess = createAction('user/fetchSuccess', (user: User) => ({ payload: user }))
+const fetchError = createAction('user/fetchFail')
+
+const userReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(fetch, (state) => {
             state.isFetching = true
             state.hasError = false
-        },
-        fetchSuccess: (state, action: PayloadAction<User>) => {
-            state.isFetching = false
-            state.user = action.payload
-        },
-        fetchError: (state) => {
+        }).addCase(fetchError, (state) => {
             state.isFetching = false
             state.hasError = true
-        }
-    },
+        }).addCase(fetchSuccess, (state, action) => {
+            state.isFetching = false
+            state.user = action.payload
+        })
 })
 
-const userActions = userSlice.actions
-const userReducer = userSlice.reducer
-const userDuckName = userSlice.name
+const userActions = {
+    fetch,
+    fetchError,
+    fetchSuccess
+}
 
 export {
     userActions,

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
 import type { Course, CourseState } from './types'
 
@@ -7,29 +7,31 @@ const initialState: CourseState = {
     hasError: false
 }
 
-export const courseSlice = createSlice({
-    name: 'course',
-    // `createSlice` will infer the state type from the `initialState` argument
-    initialState,
-    reducers: {
-        fetch: (state) => {
+const courseDuckName = 'course'
+
+const fetch = createAction('course/fetch')
+const fetchSuccess = createAction('course/fetchSuccess', (course: Course) => ({ payload: course }))
+const fetchError = createAction('course/fetchFail')
+
+const courseReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(fetch, (state) => {
             state.isFetching = true
+            state.hasError = false
+        }).addCase(fetchError, (state) => {
+            state.isFetching = false
             state.hasError = true
-        },
-        fetchSuccess: (state, action: PayloadAction<Course>) => {
+        }).addCase(fetchSuccess, (state, action) => {
             state.isFetching = false
             state.course = action.payload
-        },
-        fetchError: (state) => {
-            state.isFetching = false
-            state.hasError = true
-        }
-    },
+        })
 })
 
-const courseActions = courseSlice.actions
-const courseReducer = courseSlice.reducer
-const courseDuckName = courseSlice.name
+const courseActions = {
+    fetch,
+    fetchError,
+    fetchSuccess
+}
 
 export {
     courseActions,

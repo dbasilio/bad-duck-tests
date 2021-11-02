@@ -4,7 +4,7 @@ import { userActions } from './slice'
 import type { User } from './types'
 
 
-function* userSaga() {
+export function* userSaga() {
     try {
         const response: AxiosResponse<User> = yield call(axios.get, '/user')
         yield put(userActions.fetchSuccess(response.data))
