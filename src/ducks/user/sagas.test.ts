@@ -8,7 +8,7 @@ import type { User } from './types'
 
 describe('user sagas', () => {
     it('watches for correct actions on saga watcher', () => {
-        // case 1: Add a new hook to the saga watcher
+        // case 1: Add a new action to the saga watcher
         testSaga(userSagaWatcher)
             .next()
             .takeEvery(userActions.fetch.toString(), userSaga)

@@ -1,5 +1,3 @@
-import type { UserState } from './types'
-
 import { userReducer, userActions } from '.'
 
 describe('user reducer', () => {
